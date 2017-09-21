@@ -38,15 +38,15 @@ class Country
     private $continent;
 
 	/**
-	 * @var ArrayCollection|Nation[]
+	 * @var ArrayCollection|NationsInCountries[]
 	 *
-	 * @ORM\ManyToMany(targetEntity="Nation", mappedBy="countries")
+	 * @ORM\OneToMany(targetEntity="NationsInCountries", mappedBy="country")
 	 */
-    private $nations;
+    private $nationsInCountries;
 
     public function __construct()
     {
-    	$this->nations = new ArrayCollection();
+    	$this->nationsInCountries = new ArrayCollection();
     }
 
 
@@ -102,41 +102,41 @@ class Country
 
 
 	/**
-	 * @param Nation $nation
+	 * @param NationsInCountries $nationsInCountries
 	 */
-	public function addNation(Nation $nation) {
-		if ($this->nations->contains($nation)) {
+	public function addNation(NationsInCountries $nationsInCountries) {
+		if ($this->nationsInCountries->contains($nationsInCountries)) {
 			return;
 		}
 
-		$this->nations->add($nation);
+		$this->nationsInCountries->add($nationsInCountries);
 	}
 
 	/**
-	 * @param Nation $nation
+	 * @param NationsInCountries $nationsInCountries
 	 */
-	public function removeNation(Nation $nation) {
-		if (!$this->nations->contains($nation)) {
+	public function removeNation(NationsInCountries $nationsInCountries) {
+		if (!$this->nationsInCountries->contains($nationsInCountries)) {
 			return;
 		}
 
-		$this->nations->removeElement($nation);
+		$this->nationsInCountries->removeElement($nationsInCountries);
 	}
 
 	/**
-	 * @return ArrayCollection|Nation[]
+	 * @return ArrayCollection|NationsInCountries[]
 	 */
-	public function getNations()
+	public function getNationsInCountries()
 	{
-		return $this->nations;
+		return $this->nationsInCountries;
 	}
 
 	/**
-	 * @param ArrayCollection|Nation[] $nations
+	 * @param ArrayCollection|NationsInCountries[] $nationsInCountries
 	 */
-	public function setNations($nations)
+	public function setNationsInCountries($nationsInCountries)
 	{
-		$this->nations = $nations;
+		$this->nationsInCountries = $nationsInCountries;
 	}
 
 	/**

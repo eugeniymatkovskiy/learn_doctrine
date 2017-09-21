@@ -13,7 +13,7 @@ class NationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('population')->add('countries');
+        $builder->add('title')->add('population');
     }
     
     /**

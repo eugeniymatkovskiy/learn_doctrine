@@ -37,15 +37,15 @@ class Nation
     private $population;
 
 	/**
-	 * @var ArrayCollection|Country[]
+	 * @var ArrayCollection|NationsInCountries[]
 	 *
-	 * @ORM\ManyToMany(targetEntity="Country", inversedBy="nations")
+	 * @ORM\OneToMany(targetEntity="NationsInCountries", mappedBy="nation")
 	 */
-    private $countries;
+	private $nationsInCountries;
 
     public function __construct()
     {
-    	$this->countries = new ArrayCollection();
+    	$this->nationsInCountries = new ArrayCollection();
     }
 
 
@@ -108,41 +108,41 @@ class Nation
     }
 
 	/**
-	 * @param Country $country
+	 * @param NationsInCountries $nationsInCountries
 	 */
-	public function addCountry(Country $country) {
-		if ($this->countries->contains($country)) {
+	public function addCountry(NationsInCountries $nationsInCountries) {
+		if ($this->nationsInCountries->contains($nationsInCountries)) {
 			return;
 		}
 
-		$this->countries->add($country);
+		$this->nationsInCountries->add($nationsInCountries);
 	}
 
 	/**
-	 * @param Country $country
+	 * @param NationsInCountries $nationsInCountries
 	 */
-	public function removeCountry(Country $country) {
-		if (!$this->countries->contains($country)) {
+	public function removeCountry(NationsInCountries $nationsInCountries) {
+		if (!$this->nationsInCountries->contains($nationsInCountries)) {
 			return;
 		}
 
-		$this->countries->removeElement($country);
+		$this->nationsInCountries->removeElement($nationsInCountries);
 	}
 
 	/**
-	 * @return ArrayCollection|Country[]
+	 * @return ArrayCollection|NationsInCountries[]
 	 */
-	public function getCountries()
+	public function getNationsInCountries()
 	{
-		return $this->countries;
+		return $this->nationsInCountries;
 	}
 
 	/**
-	 * @param ArrayCollection|Country[] $countries
+	 * @param ArrayCollection|NationsInCountries[] $nationsInCountries
 	 */
-	public function setCountries($countries)
+	public function setNationsInCountries($nationsInCountries)
 	{
-		$this->countries = $countries;
+		$this->nationsInCountries = $nationsInCountries;
 	}
 }
 

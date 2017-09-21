@@ -67,13 +67,10 @@ class NationController extends Controller
      */
     public function showAction(Nation $nation)
     {
-
-
         $deleteForm = $this->createDeleteForm($nation);
 
         return $this->render('nation/show.html.twig', array(
             'nation' => $nation,
-            'countries' => $nation->getCountries(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
