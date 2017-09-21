@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Nations list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Population</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for nation in nations %}
+            <tr>
+                <td><a href="{{ path('nation_show', { 'id': nation.id }) }}">{{ nation.id }}</a></td>
+                <td>{{ nation.title }}</td>
+                <td>{{ nation.population }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('nation_show', { 'id': nation.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('nation_edit', { 'id': nation.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('nation_new') }}">Create a new nation</a>
+        </li>
+    </ul>
+{% endblock %}

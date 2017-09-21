@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container" style="width: 500px;">
+        <h1>Nation</h1>
+
+        <table>
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ nation.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ nation.title }}</td>
+            </tr>
+            <tr>
+                <th>Population</th>
+                <td>{{ nation.population }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        {#<ul>#}
+        {#{% for country in countries %}#}
+            {#<li>{{ country.name }}</li>#}
+        {#{% endfor %}#}
+        {#</ul>#}
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Continent</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for country in countries %}
+                    <tr>
+                        <td>{{ country.continent.name }}</td>
+                        <td>{{ country.name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <ul>
+            {#<table class="table">#}
+                {#<tr>#}
+                    {#<td>#}
+                        {#<a href="{{ path('nation_index') }}" class="btn btn-info" role="button">#}
+                            {#Back to the list#}
+                        {#</a>#}
+                    {#</td>#}
+                {#</tr>#}
+            {#</table>#}
+            <li>
+                <a href="{{ path('nation_index') }}">Back to the list</a>
+            </li>
+            <li>
+                <a href="{{ path('nation_edit', { 'id': nation.id }) }}">Edit</a>
+            </li>
+            <li>
+                {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+                {{ form_end(delete_form) }}
+            </li>
+        </ul>
+    </div>
+
+{% endblock %}

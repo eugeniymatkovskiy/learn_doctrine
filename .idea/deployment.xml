@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="learn-symfony.net">
+    <serverData>
+      <paths name="learn-symfony.net">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="earth" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
