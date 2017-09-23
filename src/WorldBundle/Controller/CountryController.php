@@ -2,10 +2,13 @@
 
 namespace WorldBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use WorldBundle\Entity\Country;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use WorldBundle\Entity\Nation;
+use WorldBundle\Entity\NationsInCountries;
 
 /**
  * Country controller.
@@ -66,9 +69,12 @@ class CountryController extends Controller
     public function showAction(Country $country)
     {
         $deleteForm = $this->createDeleteForm($country);
+	    $em = $this->getDoctrine()->getManager();
+	    $allNations = $em->getRepository('WorldBundle:Nation')->findAll();
 
         return $this->render('WorldBundle:Country:show.html.twig', array(
             'country' => $country,
+	        'allNations' => $allNations,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -133,4 +139,41 @@ class CountryController extends Controller
             ->getForm()
         ;
     }
+
+	/**
+	 * @Route("/add/nation", name="add_nation_to_country")
+	 * @Method({"POST"})
+	 */
+	public function addNationAction(Request $request) {
+		$countryId = $request->request->get('country');
+		$nationId = $request->request->get('nation');
+		$population = $request->request->get('population');
+
+		/** @var EntityManager $em */
+		$em = $this->getDoctrine()->getManager();
+
+		/** @var Country $country */
+		$country = $em->getRepository('WorldBundle:Country')->find($countryId);
+		/** @var Nation $nation */
+		$nation = $em->getRepository('WorldBundle:Nation')->find($nationId);
+
+		$searchCriteria = [
+			'country' => $countryId,
+			'nation' => $nationId
+		];
+		/** @var NationsInCountries $nationsInCountries */
+		$nationsInCountries = $em->getRepository('WorldBundle:NationsInCountries')->findOneBy($searchCriteria);
+
+		if (is_null($nationsInCountries)) {
+			$nationsInCountries = new NationsInCountries($country, $nation, $population);
+			$em->persist($nationsInCountries);
+			$em->flush();
+		} else if ($nationsInCountries->getPopulation() != $population) {
+			$nationsInCountries->setPopulation($population);
+			$em->persist($nationsInCountries);
+			$em->flush();
+		}
+
+		return $this->redirectToRoute('country_show', array('id' => $country->getId()));
+	}
 }

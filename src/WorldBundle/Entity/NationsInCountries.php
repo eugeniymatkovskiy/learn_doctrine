@@ -44,8 +44,15 @@ class NationsInCountries
      */
     private $population;
 
+    public function __construct(Country $country, Nation $nation, $population)
+    {
+    	$this->country = $country;
+    	$this->nation = $nation;
+    	$this->population = $population;
+    }
 
-    /**
+
+	/**
      * Get id
      *
      * @return int
