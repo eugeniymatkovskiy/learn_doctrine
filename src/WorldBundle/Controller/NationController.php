@@ -28,7 +28,7 @@ class NationController extends Controller
 
         $nations = $em->getRepository('WorldBundle:Nation')->findAll();
 
-        return $this->render('nation/index.html.twig', array(
+        return $this->render('WorldBundle:Nation:index.html.twig', array(
             'nations' => $nations,
         ));
     }
@@ -53,7 +53,7 @@ class NationController extends Controller
             return $this->redirectToRoute('nation_show', array('id' => $nation->getId()));
         }
 
-        return $this->render('nation/new.html.twig', array(
+        return $this->render('WorldBundle:Nation:new.html.twig', array(
             'nation' => $nation,
             'form' => $form->createView(),
         ));
@@ -69,7 +69,7 @@ class NationController extends Controller
     {
         $deleteForm = $this->createDeleteForm($nation);
 
-        return $this->render('nation/show.html.twig', array(
+        return $this->render('WorldBundle:Nation:show.html.twig', array(
             'nation' => $nation,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -93,7 +93,7 @@ class NationController extends Controller
             return $this->redirectToRoute('nation_edit', array('id' => $nation->getId()));
         }
 
-        return $this->render('nation/edit.html.twig', array(
+        return $this->render('WorldBundle:Nation:edit.html.twig', array(
             'nation' => $nation,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

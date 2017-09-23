@@ -1,1 +1,25 @@
-Hello World!
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        <select name="continent" id="continet" class="form-control">
+            <option></option>
+            {% for continent in continents %}
+                <option value="{{ continent.id }}">{{ continent.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <script type="application/javascript">
+        $('#continet').change(function() {
+            $.ajax({
+                'url': '/getcountries/' + this.value
+                {#'url': {{ path('get_countries', {'id' : this.value}) }}#}
+            }).done(putCountriesToSelect);
+        });
+
+        function putCountriesToSelect(data) {
+            console.log(data);
+        }
+    </script>
+{% endblock %}

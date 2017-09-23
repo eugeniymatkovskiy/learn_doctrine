@@ -26,7 +26,7 @@ class ContinentController extends Controller
 
         $continents = $em->getRepository('WorldBundle:Continent')->findAll();
 
-        return $this->render('continent/index.html.twig', array(
+        return $this->render('WorldBundle:Continent:index.html.twig', array(
             'continents' => $continents,
         ));
     }
@@ -51,7 +51,7 @@ class ContinentController extends Controller
             return $this->redirectToRoute('continent_show', array('id' => $continent->getId()));
         }
 
-        return $this->render('continent/new.html.twig', array(
+        return $this->render('WorldBundle:Continent:new.html.twig', array(
             'continent' => $continent,
             'form' => $form->createView(),
         ));
@@ -67,7 +67,7 @@ class ContinentController extends Controller
     {
         $deleteForm = $this->createDeleteForm($continent);
 
-        return $this->render('continent/show.html.twig', array(
+        return $this->render('WorldBundle:Continent:show.html.twig', array(
             'continent' => $continent,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -91,7 +91,7 @@ class ContinentController extends Controller
             return $this->redirectToRoute('continent_edit', array('id' => $continent->getId()));
         }
 
-        return $this->render('continent/edit.html.twig', array(
+        return $this->render('WorldBundle:Continent:edit.html.twig', array(
             'continent' => $continent,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

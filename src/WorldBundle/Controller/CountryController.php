@@ -26,7 +26,7 @@ class CountryController extends Controller
 
         $countries = $em->getRepository('WorldBundle:Country')->findAll();
 
-        return $this->render('country/index.html.twig', array(
+        return $this->render('WorldBundle:Country:index.html.twig', array(
             'countries' => $countries,
         ));
     }
@@ -51,7 +51,7 @@ class CountryController extends Controller
             return $this->redirectToRoute('country_show', array('id' => $country->getId()));
         }
 
-        return $this->render('country/new.html.twig', array(
+        return $this->render('WorldBundle:Country:new.html.twig', array(
             'country' => $country,
             'form' => $form->createView(),
         ));
@@ -67,7 +67,7 @@ class CountryController extends Controller
     {
         $deleteForm = $this->createDeleteForm($country);
 
-        return $this->render('country/show.html.twig', array(
+        return $this->render('WorldBundle:Country:show.html.twig', array(
             'country' => $country,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -91,7 +91,7 @@ class CountryController extends Controller
             return $this->redirectToRoute('country_edit', array('id' => $country->getId()));
         }
 
-        return $this->render('country/edit.html.twig', array(
+        return $this->render('WorldBundle:Country:edit.html.twig', array(
             'country' => $country,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
