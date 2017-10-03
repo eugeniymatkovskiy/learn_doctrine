@@ -8,6 +8,21 @@
                 <option value="{{ continent.id }}">{{ continent.name }}</option>
             {% endfor %}
         </select>
+
+        <select name="country" id="country" class="form-control"></select>
+        <table class="table" id="nations">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Tot pop</th>
+                    <th>Popul</th>
+                    <th>%</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
     </div>
 
     <script type="application/javascript">
@@ -19,7 +34,30 @@
         });
 
         function putCountriesToSelect(data) {
-            console.log(data);
+            $.each(data, function(id, name){
+                var option = $('<option/>').attr({ 'value': id }).text(name);
+
+                $('#country').append(option);
+            });
+
+            $('#country').change(function() {
+                $.ajax({
+                    'url': '/getnations/' + this.value
+                    {#'url': {{ path('get_countries', {'id' : this.value}) }}#}
+                }).done(showNations);
+            });
+        }
+
+        function showNations(data) {
+            $.each(data, function(id, nationData) {
+                $("#nations").find('tbody')
+                    .append($('<tr>')
+                        .append($('<td>').text(nationData.name))
+                        .append($('<td>').text(nationData.totalPopulation))
+                        .append($('<td>').text(nationData.populationInCountry))
+                        .append($('<td>').text(nationData.percent))
+                    );
+            });
         }
     </script>
 {% endblock %}
